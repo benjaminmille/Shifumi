@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project name="Shifu" default="compile">
+	<path id="findbugdir">
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
+	</path>
+    <target name="clean" description="Clean all project">
+        <delete dir="bin"/>
+        <delete dir="dist"/>
+    </target>
+    <target name="compile" description="Compile all java file of src folder">
+        <mkdir dir="bin"/>
+        <javac srcdir="src" destdir="bin" excludes="test/MainTest.java"/>
+    </target>
+    <target name="jar" description="Make jar file of project">
+        <mkdir dir="dist"/>
+        <jar destfile="dist/shifu.jar">
+            <fileset dir="bin" includes="**/*" />
+            <manifest>
+                <attribute name="Main Class" value="main/MainClass" />
+            </manifest>
+        </jar>
+	</target>
+    <target name="checkstyle" description="Check quality">
+	    <taskdef resource="checkstyletask.properties" 
+	    	classpath="C:\Program Files\Java\eclipse\checkstyle-6.3-all.jar"/>
+        <checkstyle config="checkstyle_rules.xml" >
+            <fileset dir="src/main" includes="**/*"/>
+        </checkstyle>
+    </target>
+	<target name="findbug" description="Find all bug">
+		<taskdef name="findbug" 
+			  classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
+			  classpathref="findbugdir"/>
+        <findbug home="lib/"
+                  output="html"
+                  outputFile="dist/findbug-report.html">
+            <sourcePath path="src/main/java"/>
+            <class location="bin"/>
+        </findbug>
+	</target>
+	<!--<target name="pmd">
+	   <taskdef name="pmd" classpathref="pmd.classpath" classpath="lib/pmd-5-2-3.jar" classname="net.sourceforge.pmd.ant.PMDTask"/>
+		<pmd shortFilenames="true">
+		  <ruleset>lib/rules.xml</ruleset>
+		  <formatter type="xml" toFile="dist/pmd.xml"/>
+		  <fileset dir="src/min/java"/>
+		</pmd>
+	</target>-->
+</project>
