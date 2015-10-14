@@ -34,8 +34,8 @@ public class MainClass {
 		int[] gameInfo = new int[nbGameInfo];
 		
 		Scanner sc = new Scanner(System.in);
-		System.out.println("The game begin.\nEntert:\n- R for Rock\n- F for"
-						+ "Paper\n- S for Scissors\n- E to leave the game.");
+		System.out.println("The game begin.\nEnter:\n- R for rock\n- F for "
+						+ "paper\n- S for scissors\n- E to leave the game.");
 		
 		while (nbTry != valueTry) {	
 			String str = "";
@@ -54,23 +54,22 @@ public class MainClass {
 		}
 		sc.close();
 		endGame(scoreUser, scoreAI);
+		System.exit(0);
 	}
 	/**
 	 * @param scoreUser The user score.
 	 * @param scoreAI The AI score.
 	 */
-	public static void endGame(int scoreUser, int scoreAI) {
+	public String endGame(int scoreUser, int scoreAI) {
+		String str = "";
 		if (scoreUser > scoreAI) {
-			System.out.printf("\nYou win the game: " 
-		    + scoreUser + "-" + scoreAI);
+			str = "%nYou win the game: " + scoreUser + "-" + scoreAI;
 		} else if (scoreUser < scoreAI) {
-			System.out.printf("\nYou lose the game: " 
-		   + scoreUser + "-" + scoreAI);
+			str = "%nYou lose the game: " + scoreUser + "-" + scoreAI;
 		} else {
-			System.out.printf("\nNo winner for this game: " 
-		   + scoreUser + "-" + scoreAI);
+			str = "%nNo winner for this game: " + scoreUser + "-" + scoreAI;
 		}
-	    System.exit(0);
+	    return str;
 	}
 	/**
 	 * @return rdm A random number.
@@ -131,8 +130,8 @@ public class MainClass {
 			default:
 		}
 		nbTry++;
-		System.out.printf("You: " + trickUser.getName() + "\nAI: " + trickAI 
-				+ "\n" + result + ".\nYou still: " 
+		System.out.printf("You: " + trickUser.getName() + "%nAI: " + trickAI 
+				+ "%n" + result + ".%nYou still: " 
 				+ (dix - nbTry) + " tries.");
 		gameInfo[0] = scoreUser;
 		gameInfo[1] = scoreAI;
